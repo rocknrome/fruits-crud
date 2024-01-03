@@ -87,7 +87,84 @@ app.get("/fruits", async (req, res) => {
     }
   });
 
+  // new route
+app.get("/fruits/new", (req, res) => {
+    res.render("fruits/new.ejs")
+});
 
+// create route
+app.post("/fruits", async (req, res) => {
+    try {
+      // check if the readyToEat property should be true or false
+      req.body.readyToEat = req.body.readyToEat === "on" ? true : false;
+      // create the new fruit
+      await Fruit.create(req.body);
+      // redirect the user back to the main fruits page after fruit created
+      res.redirect("/fruits");
+    } catch (error) {
+      res.status(400).send(error.message);
+    }
+  });
+
+// edit route
+app.get("/fruits/:id/edit", async (req, res) => {
+    try {
+      // get the id from params
+      const id = req.params.id;
+      // get the fruit from the database
+      const fruit = await Fruit.findById(id);
+      // render template and send it fruit
+      res.render("fruits/edit.ejs", { fruit });
+    } catch (error) {
+      res.status(400).send(error.message);
+    }
+  });
+
+//update route
+app.put("/fruits/:id", async (req, res) => {
+    try {
+      // get the id from params
+      const id = req.params.id;
+      // check if the readyToEat property should be true or false
+      req.body.readyToEat = req.body.readyToEat === "on" ? true : false;
+      // update the fruit
+      await Fruit.findByIdAndUpdate(id, req.body, { new: true });
+      // redirect user back to main page when fruit
+      res.redirect("/fruits");
+    } catch (error) {
+      res.status(400).send(error.message);
+    }
+  });
+
+  app.delete("/fruits/:id", async (req, res) => {
+    try {
+      // get the id from params
+      const id = req.params.id;
+      // delete the fruit
+      await Fruit.findByIdAndRemove(id);
+      // redirect user back to index page
+      res.redirect("/fruits");
+    } catch (error) {
+      res.status(400).send(error.message);
+    }
+  });
+
+
+// show route
+app.get("/fruits/:id", async (req, res) => {
+    try {
+      // get the id from params
+      const id = req.params.id;
+
+      // find the particular fruit from the database
+      const fruit = await Fruit.findById(id);
+
+      // render the template with the data from the database
+      res.render("fruits/show.ejs", { fruit });
+    } catch (error) {
+      res.status(400).send(error.message);
+    }
+  });
 
 //////////////////////////////////////////////
 const PORT = process.env.PORT
