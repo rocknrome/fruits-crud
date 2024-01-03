@@ -3,41 +3,9 @@ require("dotenv").config()
 const morgan = require("morgan");
 const methodOverride = require("method-override");
 const mongoose = require("mongoose");
-
-//////////////////////////
-
-const DATABASE_URL = process.env.DATABASE_URL
-
-mongoose.connect(DATABASE_URL)
-
-mongoose.connection
-.on("open", ()=> {
-    console.log("Happily connected to Mongo")
-})
-.on("close", ()=> {
-    console.log("Disconnected from Mongo")
-})
-.on("error", (error)=> {
-    console.log("error")
-})
+const Fruit = require("./models/fruits");
 
 /////////////////////////
-
-// destructure Schema and model into their own variables
-const {Schema, model} = mongoose
-// const Schema = mongoose.Schema
-// const model = mongoose.model
-
-// Schema - Shape of the Data
-const fruitSchema = new Schema({
-    name: String,
-    color: String,
-    readyToEat: Boolean
-})
-
-// Model - object for interacting with the db
-const Fruit = model("Fruit", fruitSchema)
-
 const app = express();
 
 ////////////////////////
