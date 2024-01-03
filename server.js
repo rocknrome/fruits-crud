@@ -136,12 +136,13 @@ app.put("/fruits/:id", async (req, res) => {
     }
   });
 
+  //delete route
   app.delete("/fruits/:id", async (req, res) => {
     try {
       // get the id from params
       const id = req.params.id;
       // delete the fruit
-      await Fruit.findByIdAndRemove(id);
+      await Fruit.findByIdAndDelete(id);
       // redirect user back to index page
       res.redirect("/fruits");
     } catch (error) {

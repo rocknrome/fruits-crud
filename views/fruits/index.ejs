@@ -5,21 +5,6 @@
   <body>
     <%- include("../partials/header.ejs") %>
     <main>
-
-      <div>
-        <a href="/fruits/new"><button>Create A New Fruit</button></a>
-      <% for (fruit of fruits) { %>
-
-      <article>
-        <a href="/fruits/<%= fruit._id %>">
-          <h2>
-            <%= fruit.name %> - <%= fruit.readyToEat ? "Ripe" : "Not Ripe" %>
-          </h2>
-        </a>
-      </article>
-
-      <% } %>
-    </div>
       <div>
         <% for (fruit of fruits) { %>
 
