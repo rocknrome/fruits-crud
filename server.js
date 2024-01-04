@@ -22,8 +22,6 @@ app.get("/", (req, res) => {
     res.send("your server is running... better catch it.")
 })
 
-////////////////////////////////////////////
-
 
 //////////////////////////////////////////////
 const PORT = process.env.PORT
