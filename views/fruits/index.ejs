@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <%- include("../partials/head.ejs") %>
-
   <body>
     <%- include("../partials/header.ejs") %>
+
     <main>
+      <a href="/fruits/new"><button>Create a Fruit</button></a>
       <div>
-        <% for (fruit of fruits) { %>
+        <% for(let fruit of fruits){ %>
 
         <article>
           <a href="/fruits/<%= fruit._id %>">
@@ -15,7 +16,7 @@
             </h2>
           </a>
         </article>
-        <a href="/user/logout"><button>Logout</button></a>
+
         <% } %>
       </div>
     </main>
